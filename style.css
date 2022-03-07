@@ -1,0 +1,21 @@
+body{
+    margin: 0;
+    background-color: rgb(238, 130, 238);
+}
+.menuLink{
+    color: #262626;
+    font-size: 50px;
+    border: 1px solid #262626;
+    padding: 0 15px 0 15px;
+    margin: 0 15px 0 15px;
+}
+.flex{
+    display: flex;
+}
+.header{
+    padding: 15px;
+    margin: 15px;
+}
+
+
+
