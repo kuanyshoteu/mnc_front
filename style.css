@@ -1,20 +1,76 @@
 body{
     margin: 0;
-    background-color: rgb(238, 130, 238);
+    background-color: rgb(251, 180, 251);
+    font-family: 'Pacifico', cursive;
+}
+.text-white{
+    color: white;
+}
+.menu{
+    right: 30px;
+    position: absolute;
 }
 .menuLink{
     color: #262626;
-    font-size: 50px;
-    border: 1px solid #262626;
-    padding: 0 15px 0 15px;
-    margin: 0 15px 0 15px;
+    font-size: 25px;
+    text-decoration: none;
+    padding: 0 15px;
+    margin: 0 15px;
+}
+.menuLink:hover{
+    color: #fff;
+    background-color: #262626;
+    border-radius: 15px;
+}
+.logo{
+    color: #262626;
+    font-size: 25px;
+    text-decoration: none;
+    padding: 0 15px;
+    margin: 0 15px;
+    cursor: pointer;
 }
 .flex{
     display: flex;
 }
 .header{
     padding: 15px;
-    margin: 15px;
+    /* Домашка: Изменить размеры и цвет */
+    box-shadow: 5px 5px 20px 2px rgb(155, 39, 155);
+}
+.centered{
+    justify-content: center;
+    align-content: center;
+}
+.w-half{
+    width: 50%; 
+    /* От родителя, а не от экрана */
+}
+.text-center{
+    text-align: center;
+}
+
+.mb-50{
+    margin-bottom: 50px;
+}
+
+.mb-500{
+    margin-bottom: 500px !important;
+}
+.p-15{
+    padding: 15px;
+}
+.ps-100{
+    padding: 15px 20% 15px 20%;
+}
+.bg-dark{
+    background-color: #262626;
+}
+.grid{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(300px, 1fr)); 
+    grid-template-rows: auto;
+    gap: 30px;
 }
 
 
