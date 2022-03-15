@@ -67,11 +67,21 @@ body{
     background-color: #262626;
 }
 .grid{
+    /* Вопрос 1: Что здесь происходит?  */
     display: grid;
-    grid-template-columns: repeat(3, minmax(300px, 1fr)); 
+    /* Вопрос 1: Что здесь происходит?  */
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    /* Вопрос 1: Что здесь происходит?  */
     grid-template-rows: auto;
+    /* Вопрос 1: Что здесь происходит?  */
     gap: 30px;
 }
 
-
+.kvadrat{
+    background-color: red;
+    width: 100px;
+    height: 100px;
+    /* Вопрос 2: Что здесь происходит?  */
+    position: absolute;
+}
 
