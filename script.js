@@ -1,4 +1,17 @@
 
+data = ["Free", "Standard", "Premium"]
+fillCards()
+function fillCards(){
+    origCard = document.getElementById("origCard")
+    cardBox = document.getElementById("cardBox")
+    for(var i = 0; i < data.length; i ++){
+        cloneCard = origCard.cloneNode(true)
+        cardTitle = cloneCard.getElementsByClassName("cardTitle")[0]
+        cardTitle.innerHTML = data[i]
+        cardBox.appendChild(cloneCard)
+    }
+}
+
 
 
 function colorKvadrat(){
@@ -10,28 +23,37 @@ function colorKvadrat(){
     kvadrat.style.backgroundColor = "blue"
 }
 
-// Что здесь происходит?↓
 var kvadrat = document.getElementsByClassName("kvadrat")[0]
-// Что здесь происходит?↓
 var leftt = 0
-// Что здесь происходит?↓
+var topp = 0
 function moveKvadrat(){
-    // Что здесь происходит? ↓
+    moveRight()
+}
+function moveRight(){
     leftt += 30
-    // Что здесь происходит?
     kvadrat.style.left = leftt + "px"
-    // Что здесь происходит?
     if (leftt <= 900){
-        setTimeout(moveKvadrat, 20)  // <-- Ждет 20 милисекунд и только потом запускает себя заново
+        setTimeout(moveRight, 20)  // <-- Ждет 20 милисекунд и только потом запускает себя заново
+    }
+    else{
+        moveDown()
+    }
+}
+function moveDown(){
+    topp += 30
+    kvadrat.style.top = topp + "px"
+    if (topp <= 400){
+        setTimeout(moveDown, 20)  // <-- Ждет 20 милисекунд и только потом запускает себя заново
+    }
+    else{
+        // Запускайте функцию влево
     }
 }
 
-// Используйте kvadrat.style.top, чтобы квадрат двигался вертикально
 
 
-// Что делает эта функция?↓
 function solve(){
-    // 1. Открое html документ
+    // 1. Откроет html документ
     console.log(document)
     // 2. Найти нужный див
     nuznyiDiv = document.getElementById("answer")

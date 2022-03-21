@@ -53,6 +53,9 @@ body{
 .mb-50{
     margin-bottom: 50px;
 }
+.mb-15{
+    margin-bottom: 15px;
+}
 
 .mb-500{
     margin-bottom: 500px !important;
@@ -70,11 +73,12 @@ body{
     /* Вопрос 1: Что здесь происходит?  */
     display: grid;
     /* Вопрос 1: Что здесь происходит?  */
-    grid-template-columns: repeat(3, minmax(300px, 1fr));
+    grid-template-columns: 1fr 6fr 3fr;
     /* Вопрос 1: Что здесь происходит?  */
     grid-template-rows: auto;
     /* Вопрос 1: Что здесь происходит?  */
-    gap: 30px;
+    gap: 15px;
+    align-items: center;
 }
 
 .kvadrat{
@@ -84,4 +88,17 @@ body{
     /* Вопрос 2: Что здесь происходит?  */
     position: absolute;
 }
-
+#cardBox{
+    padding: 0 30%;
+}
+.cardPrice{
+    border: 1px solid black;
+    border-radius: 30px;
+    padding: 15px 30px;
+}
+.circle{
+    background-color: skyblue;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
