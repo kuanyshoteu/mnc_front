@@ -1,5 +1,96 @@
 
-data = ["Free", "Standard", "Premium"]
+data = [
+    ["imgPost1", "imgAuthor", "nameAuthor", "text"],
+    ["imgPost2", "imgAuthor2", "nameAuthor", "text"],
+    ["imgPost3", "imgAuthor2", "nameAuthor", "text"],
+    ["imgPost4", "imgAuthor", "nameAuthor", "text"],
+]
+
+demo = document.getElementById("demo")
+
+class Car {
+  constructor(name, year) {
+    this.name = name;
+    this.year = year;
+  }
+  age(x) {
+    return x - this.year;
+  }
+}
+
+let date = new Date();
+let year = date.getFullYear();
+
+let myCar = new Car("Ford", 2014);
+document.getElementById("demo").innerHTML=
+"My car is " + myCar.age(year) + " years old.";
+
+
+
+
+
+var card = {
+  title:"Free",
+  description:"For broke people",
+  price:5000
+}; 
+//var x = card; // < --- Ссылка на объект
+//firstObject()
+//deleteSmth()
+// objectInObject()
+function firstObject(){
+    let txt = "";
+    for (let i in card) {
+      txt += card[i] + " ";
+    }
+    demo.innerHTML = txt;
+}
+function deleteSmth(){
+    delete card['description']
+    let txt = "";
+    for (let x in card) {
+      txt += card[x] + " ";
+    }    
+    demo.innerHTML = txt;
+}
+function objectInObject(){
+    var card = {
+      title:"Free",
+      description:"For broke people",
+      price:5000,
+      Access: [
+      {
+        OpenSite: true,
+        Create: false,
+        Yo: {Qw: 'erty'}
+      },
+      {
+        OpenSite: true,
+        Create: false,
+        Yo: [{Qw: 'erty'}],
+      },
+      ]
+    }; 
+    let txt = "";
+    for (let x in card) {
+      txt += card[x] + " ";
+    }
+    demo.innerHTML = txt;
+}
+// useThis()
+function useThis(){
+    var card = {
+      title:"Free",
+      description:"For broke people",
+      price:5001,
+      fullText: function() {
+        return this.title + " " + this.description + this.price;
+      }
+    }; 
+    txt = card.fullText()
+    demo.innerHTML = txt;
+}
+
 fillCards()
 function fillCards(){
     origCard = document.getElementById("origCard")
@@ -46,7 +137,24 @@ function moveDown(){
         setTimeout(moveDown, 20)  // <-- Ждет 20 милисекунд и только потом запускает себя заново
     }
     else{
-        // Запускайте функцию влево
+        moveLeft()
+    }
+}
+function moveLeft(){
+    leftt -= 30
+    kvadrat.style.left = leftt + "px"
+    if (leftt >= 0){
+        setTimeout(moveLeft, 20)  // <-- Ждет 20 милисекунд и только потом запускает себя заново
+    }
+    else{
+        moveUp()
+    }
+}
+function moveUp(){
+    topp -= 30
+    kvadrat.style.top = topp + "px"
+    if (topp >= 100){
+        setTimeout(moveUp, 20)  // <-- Ждет 20 милисекунд и только потом запускает себя заново
     }
 }
 
