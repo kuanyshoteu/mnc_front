@@ -1,31 +1,58 @@
-
-data = [
-    ["imgPost1", "imgAuthor", "nameAuthor", "text"],
-    ["imgPost2", "imgAuthor2", "nameAuthor", "text"],
-    ["imgPost3", "imgAuthor2", "nameAuthor", "text"],
-    ["imgPost4", "imgAuthor", "nameAuthor", "text"],
+data1 = ["Free", "Standard", "Premium"]
+// Это данные
+data2 = [
+    ["kotik.jfif", "imgAuthor", "nameAuthor", "text111", 1],
+    ["imgPost2", "imgAuthor2", "nameAuthor", "text2", 2],
+    ["imgPost3", "imgAuthor2", "nameAuthor", "text3", 3],
+    ["imgPost4", "imgAuthor", "nameAuthor", "text4", 4],
 ]
 
 demo = document.getElementById("demo")
 
-class Car {
-  constructor(name, year) {
-    this.name = name;
-    this.year = year;
+
+class Parent {
+  constructor(imgAuthor, nameAuthor, text, idd) {
+    this.imgAuthor = imgAuthor;
+    this.nameAuthor = nameAuthor;
+    this.text = text;
+    this.id = idd;
   }
-  age(x) {
-    return x - this.year;
+  fillContent() {
+    var origPost = document.getElementById('origPost')
+    if(origPost){
+        var clonePost = origPost.cloneNode(true)
+        clonePost.setAttribute('id', this.id)
+        var postText = clonePost.getElementsByClassName('postText')[0]
+        postText.innerHTML = this.text
+        var postBox = document.getElementsByClassName('postBox')[0]
+        postBox.appendChild(clonePost)
+    }
   }
 }
+class Post extends Parent {
+    constructor(imgContent, imgAuthor, nameAuthor, text, idd) { // Тут просто переменные
+      super(imgAuthor, nameAuthor, text, idd);
+      this.imgContent = imgContent; // тут создаются названия атрибутов
+    }
+    fillImg(){
+        var clonePost = document.getElementById('post' + this.id)
+        var imgPost = clonePost.getElementsByClassName('postImg')[0]
+        imgPost.setAttribute('src', this.imgContent)
+    }
+}
+class Comment extends Parent {
+    constructor(imgAuthor, nameAuthor, text) { // Тут просто переменные
+      super(imgAuthor, nameAuthor, text);
+    }
+}
 
-let date = new Date();
-let year = date.getFullYear();
-
-let myCar = new Car("Ford", 2014);
-document.getElementById("demo").innerHTML=
-"My car is " + myCar.age(year) + " years old.";
-
-
+myObjects = []
+for(var i = 0; i < data2.length; i++){
+    let myPost = new Post(data2[i][0], data2[i][1], data2[i][2], data2[i][3], 'post' + data2[i][4]);
+    myObjects.push(myPost)
+    myPost.fillContent()
+    myPost.fillImg()
+}
 
 
 
@@ -94,12 +121,14 @@ function useThis(){
 fillCards()
 function fillCards(){
     origCard = document.getElementById("origCard")
-    cardBox = document.getElementById("cardBox")
-    for(var i = 0; i < data.length; i ++){
-        cloneCard = origCard.cloneNode(true)
-        cardTitle = cloneCard.getElementsByClassName("cardTitle")[0]
-        cardTitle.innerHTML = data[i]
-        cardBox.appendChild(cloneCard)
+    if(origCard){
+        cardBox = document.getElementById("cardBox")
+        for(var i = 0; i < data1.length; i ++){
+            cloneCard = origCard.cloneNode(true)
+            cardTitle = cloneCard.getElementsByClassName("cardTitle")[0]
+            cardTitle.innerHTML = data1[i]
+            cardBox.appendChild(cloneCard)
+        }
     }
 }
 
