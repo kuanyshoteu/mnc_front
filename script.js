@@ -2,9 +2,9 @@ data1 = ["Free", "Standard", "Premium"]
 // Это данные
 data2 = [
     ["kotik.jfif", "imgAuthor", "nameAuthor", "text111", 1],
-    ["imgPost2", "imgAuthor2", "nameAuthor", "text2", 2],
-    ["imgPost3", "imgAuthor2", "nameAuthor", "text3", 3],
-    ["imgPost4", "imgAuthor", "nameAuthor", "text4", 4],
+    ["airplane.png", "imgAuthor2", "nameAuthor", "text2", 2],
+    ["kotik.jfif", "imgAuthor2", "nameAuthor", "text3", 3],
+    ["airplane.png", "imgAuthor", "nameAuthor", "text4", 4],
 ]
 
 demo = document.getElementById("demo")
@@ -21,6 +21,7 @@ class Parent {
     var origPost = document.getElementById('origPost')
     if(origPost){
         var clonePost = origPost.cloneNode(true)
+
         clonePost.setAttribute('id', this.id)
         var postText = clonePost.getElementsByClassName('postText')[0]
         postText.innerHTML = this.text
@@ -35,7 +36,8 @@ class Post extends Parent {
       this.imgContent = imgContent; // тут создаются названия атрибутов
     }
     fillImg(){
-        var clonePost = document.getElementById('post' + this.id)
+        var clonePost = document.getElementById(this.id)
+        console.log(this.id, clonePost)
         var imgPost = clonePost.getElementsByClassName('postImg')[0]
         imgPost.setAttribute('src', this.imgContent)
     }
@@ -49,6 +51,7 @@ class Comment extends Parent {
 myObjects = []
 for(var i = 0; i < data2.length; i++){
     let myPost = new Post(data2[i][0], data2[i][1], data2[i][2], data2[i][3], 'post' + data2[i][4]);
+
     myObjects.push(myPost)
     myPost.fillContent()
     myPost.fillImg()
