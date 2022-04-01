@@ -1,10 +1,10 @@
 data1 = ["Free", "Standard", "Premium"]
 // Это данные
 data2 = [
-    ["kotik.jfif", "imgAuthor", "nameAuthor", "text111", 1],
-    ["airplane.png", "imgAuthor2", "nameAuthor", "text2", 2],
-    ["kotik.jfif", "imgAuthor2", "nameAuthor", "text3", 3],
-    ["airplane.png", "imgAuthor", "nameAuthor", "text4", 4],
+    ["kotik.jfif", "imgAuthor", "nameAuthor", "text111", 1, ['Comment1', 'Comment2']],
+    ["airplane.png", "imgAuthor2", "nameAuthor", "text2", 2, ['Comment3', 'Comment4']],
+    ["kotik.jfif", "imgAuthor2", "nameAuthor", "text3", 3, ['Comment5', 'Comment6', 'Comment7']],
+    ["airplane.png", "imgAuthor", "nameAuthor", "text4", 4, ['Comment8']],
 ]
 
 demo = document.getElementById("demo")
