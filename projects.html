@@ -21,14 +21,26 @@
           <div></div>
           <div class="postBox">
             <div class="hidden">
-              <div id="origPost" class="post mb-15">
+              <div id="origpost" class="post mb-15">
                 <div class="authorLine">
                   <div class="flex centered">
                     <img class="avatarka" src="kotik.jfif">
                   </div>
                   <div>Kuanysh</div>
                 </div>
-                <img class="postImg w-full" src="kotik.jfif">
+
+                <div class="carousel">
+                  <div class="gora"></div>
+                  <div class="iama"></div>
+                  <div class="gora"></div>
+                </div>
+                <div class="postImgBox">
+                  <img class="postImg" src="kotik.jfif">
+                  <!-- <div>
+                    <a class="leftBtn"><</a>
+                    <a class="rightBtn">></a>
+                  </div> -->
+                </div>
                 <div class="postText flex centered mb-15">
                   Text text text
                 </div>
@@ -39,13 +51,13 @@
                   <a class="" onclick="showps()">Отправить</a>
                 </div>
                 <div class="commentBox">
-                  <div class="commentOrig comment">
+                  <div id="origcomment" class=" comment">
                     <div class="flex centered">
                       <img class="w-full h-full avatarka" src="kotik.jfif">
                     </div>
                     <div>
                       <div><b>Kuanysh</b></div>
-                      <div>Первый коммент</div>
+                      <div class="commentText">Первый коммент</div>
                     </div>
                   </div>
                 </div>
@@ -53,8 +65,7 @@
             </div>
            
           </div>
-          <div>
-          </div>
+          <div></div>
       </section>
   <script src="script.js"></script>
   </body>

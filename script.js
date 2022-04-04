@@ -17,15 +17,16 @@ class Parent {
     this.text = text;
     this.id = idd;
   }
-  fillContent() {
-    var origPost = document.getElementById('origPost')
+  fillContent(contentType) {
+    var origPost = document.getElementById('orig'+contentType)
+    console.log(contentType)
     if(origPost){
         var clonePost = origPost.cloneNode(true)
 
         clonePost.setAttribute('id', this.id)
-        var postText = clonePost.getElementsByClassName('postText')[0]
+        var postText = clonePost.getElementsByClassName(contentType+'Text')[0]
         postText.innerHTML = this.text
-        var postBox = document.getElementsByClassName('postBox')[0]
+        var postBox = document.getElementsByClassName(contentType+'Box')[0]
         postBox.appendChild(clonePost)
     }
   }
@@ -40,21 +41,33 @@ class Post extends Parent {
         console.log(this.id, clonePost)
         var imgPost = clonePost.getElementsByClassName('postImg')[0]
         imgPost.setAttribute('src', this.imgContent)
+        //Чтобы размер картинки совпал с размером поста
+        var postBox = document.getElementsByClassName('postBox')[0]
+        var postWidth = postBox.offsetWidth // Достает длину без пиксели в виде числа
+        imgPost.style.width = postWidth + "px" // Задает длину с пикселями
     }
 }
 class Comment extends Parent {
-    constructor(imgAuthor, nameAuthor, text) { // Тут просто переменные
-      super(imgAuthor, nameAuthor, text);
+    constructor(imgAuthor, nameAuthor, text, idd) { // Тут просто переменные
+      super(imgAuthor, nameAuthor, text, idd);
     }
+}
+
+function moveImg(){
+    
 }
 
 myObjects = []
 for(var i = 0; i < data2.length; i++){
     let myPost = new Post(data2[i][0], data2[i][1], data2[i][2], data2[i][3], 'post' + data2[i][4]);
-
     myObjects.push(myPost)
-    myPost.fillContent()
+    myPost.fillContent("post")
     myPost.fillImg()
+    for(var j = 0; j < data2[i][5].length; j++){
+        myComment = new Comment(data2[i][1], data2[i][2], data2[i][5][j], 'post'+i+'comment'+j)
+        myComment.fillContent("comment")
+        console.log(myComment)
+    }
 }
 
 
