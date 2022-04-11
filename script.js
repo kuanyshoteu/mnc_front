@@ -22,7 +22,6 @@ class Parent {
     console.log(contentType)
     if(origPost){
         var clonePost = origPost.cloneNode(true)
-
         clonePost.setAttribute('id', this.id)
         var postText = clonePost.getElementsByClassName(contentType+'Text')[0]
         postText.innerHTML = this.text
@@ -39,14 +38,49 @@ class Post extends Parent {
     fillImg(){
         var clonePost = document.getElementById(this.id)
         console.log(this.id, clonePost)
-        var imgPost = clonePost.getElementsByClassName('postImg')[0]
-        imgPost.setAttribute('src', this.imgContent)
+        var imgPost = clonePost.getElementsByClassName('postImg')
+
         //Чтобы размер картинки совпал с размером поста
         var postBox = document.getElementsByClassName('postBox')[0]
         var postWidth = postBox.offsetWidth // Достает длину без пиксели в виде числа
-        imgPost.style.width = postWidth + "px" // Задает длину с пикселями
+        var startLeft = clonePost.offsetLeft
+        for(var i = 0; i < imgPost.length; i++){
+            var imgPostCrnt = imgPost[i]
+            imgPostCrnt.setAttribute('src', this.imgContent)
+            imgPostCrnt.setAttribute('class', 'postImg Img' + this.id)
+            imgPostCrnt.style.width = postWidth + "px" // Задает длину с пикселями
+            imgPostCrnt.style.left = startLeft + postWidth * (i) + "px" // Задает длину с пикселями
+        }
+        
+        // Правая кнопка
+        var rightBtn = clonePost.getElementsByClassName('rightBtn')[0]
+        rightBtn.style.left = clonePost.offsetLeft + clonePost.offsetWidth - rightBtn.offsetWidth + 'px'
+        // onclick делаем
+        rightBtn.setAttribute('onclick', "moveImgRight('"+ this.id + "')")
+        var carousel = clonePost.getElementsByClassName("carousel")[0]
     }
 }
+function moveImgRight(idd){
+    postImg = document.getElementsByClassName('Img' + idd)
+    for(var i = 0; i < postImg.length; i++){
+        leftt = postImg[i].offsetLeft
+        widthh = postImg[i].offsetWidth
+        limLeft = leftt - widthh
+        recursionMoveRight(postImg[i], leftt, limLeft)
+    }
+}
+function recursionMoveRight(postImg, leftt, limLeft){
+    leftt -= 30
+    postImg.style.left = leftt + 'px'
+    if (leftt >= limLeft){
+        setTimeout(recursionMoveRight, 10, postImg, leftt, limLeft) 
+    }
+}
+
+
+
+
+
 class Comment extends Parent {
     constructor(imgAuthor, nameAuthor, text, idd) { // Тут просто переменные
       super(imgAuthor, nameAuthor, text, idd);

@@ -5,7 +5,7 @@ body{
 a{
     cursor: pointer;
     padding: 7px;
-    box-shadow: 4px 4px 4px 4px #262626;
+    box-shadow: 0px 0px 5px 0px #262626;
 }
 .text-white{
     color: white;
@@ -184,7 +184,7 @@ textarea{
 }
 .postImgBox{
     height: 300px;
-    
+    z-index: 0;
 }
 .postImg{
     max-width: 50%;
@@ -193,16 +193,16 @@ textarea{
     z-index: 5;
 }
 .leftBtn{
-    float: left;
-    margin-top: 100px;
+    position: absolute;
     background-color: white;
     z-index: 20;
     color: black;
+    margin-top: 120px;
 }
 .rightBtn{
-    float: right;
-    margin-top: 100px;
+    position: absolute;
     background-color: white;
     z-index: 20;
     color: black;
+    margin-top: 120px;
 }
