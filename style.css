@@ -193,7 +193,7 @@ textarea{
     z-index: 5;
 }
 .leftBtn{
-    position: absolute;
+    position: absolute; 
     background-color: white;
     z-index: 20;
     color: black;

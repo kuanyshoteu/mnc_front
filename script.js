@@ -1,10 +1,26 @@
+getData()
+async function getData(){
+    data = new FormData()
+    // data.append('username', "Timur")
+    request = await fetch('https://randomuser.me/api/', {
+        method:"POST",
+        bod
+    })
+    a = await request.json()
+    console.log(a)
+}
+
+
+
+
+
 data1 = ["Free", "Standard", "Premium"]
 // Это данные
 data2 = [
-    ["kotik.jfif", "imgAuthor", "nameAuthor", "text111", 1, ['Comment1', 'Comment2']],
-    ["airplane.png", "imgAuthor2", "nameAuthor", "text2", 2, ['Comment3', 'Comment4']],
-    ["kotik.jfif", "imgAuthor2", "nameAuthor", "text3", 3, ['Comment5', 'Comment6', 'Comment7']],
-    ["airplane.png", "imgAuthor", "nameAuthor", "text4", 4, ['Comment8']],
+    [["kotik.jfif", "airplane.png", "kotik.jfif"], "imgAuthor", "nameAuthor", "text111", 1, ['Comment1', 'Comment2']],
+    [["airplane.png", "kotik.jfif"], "imgAuthor2", "nameAuthor", "text2", 2, ['Comment3', 'Comment4']],
+    [["airplane.png"], "imgAuthor2", "nameAuthor", "text3", 3, ['Comment5', 'Comment6', 'Comment7']],
+    [["airplane.png", "kotik.jfif"], "imgAuthor", "nameAuthor", "text4", 4, ['Comment8']],
 ]
 
 demo = document.getElementById("demo")
@@ -37,31 +53,43 @@ class Post extends Parent {
     }
     fillImg(){
         var clonePost = document.getElementById(this.id)
-        console.log(this.id, clonePost)
-        var imgPost = clonePost.getElementsByClassName('postImg')
+        var imgSrcs = this.imgContent
+        var imgPostOrig = clonePost.getElementsByClassName('postImg')[0]
 
         //Чтобы размер картинки совпал с размером поста
         var postBox = document.getElementsByClassName('postBox')[0]
         var postWidth = postBox.offsetWidth // Достает длину без пиксели в виде числа
         var startLeft = clonePost.offsetLeft
-        for(var i = 0; i < imgPost.length; i++){
-            var imgPostCrnt = imgPost[i]
-            imgPostCrnt.setAttribute('src', this.imgContent)
+        var postImgBox = clonePost.getElementsByClassName('postImgBox')[0]
+        for(var i = 0; i < imgSrcs.length; i++){
+            var imgPostCrnt = imgPostOrig.cloneNode(true)
+            postImgBox.appendChild(imgPostCrnt)
+            imgPostCrnt.setAttribute('src', imgSrcs[i])
             imgPostCrnt.setAttribute('class', 'postImg Img' + this.id)
             imgPostCrnt.style.width = postWidth + "px" // Задает длину с пикселями
             imgPostCrnt.style.left = startLeft + postWidth * (i) + "px" // Задает длину с пикселями
-        }
-        
+        }       
         // Правая кнопка
         var rightBtn = clonePost.getElementsByClassName('rightBtn')[0]
         rightBtn.style.left = clonePost.offsetLeft + clonePost.offsetWidth - rightBtn.offsetWidth + 'px'
         // onclick делаем
-        rightBtn.setAttribute('onclick', "moveImgRight('"+ this.id + "')")
-        var carousel = clonePost.getElementsByClassName("carousel")[0]
+        rightBtn.setAttribute('onclick', "moveImg('"+ this.id + "', 'Right')")
+        rightBtn.setAttribute('id', "moveImgRight"+ this.id)
+
+        var leftBtn = clonePost.getElementsByClassName('leftBtn')[0]
+        // onclick делаем
+        leftBtn.setAttribute('onclick', "moveImg('"+ this.id + "', 'Left')")
+        leftBtn.setAttribute('id', "moveImgLeft"+ this.id)
     }
 }
-function moveImgRight(idd){
+function moveImg(idd, side){
+    var postBox = document.getElementsByClassName('postBox')[0]
+    var postRight = postBox.offsetLeft + postBox.offsetWidth
     postImg = document.getElementsByClassName('Img' + idd)
+    btn = document.getElementById('moveImg' + side + idd)
+    if(postImg[postImg.length - 1].offsetLeft < postRight + 50){
+        btn.style.display = "none"
+    }
     for(var i = 0; i < postImg.length; i++){
         leftt = postImg[i].offsetLeft
         widthh = postImg[i].offsetWidth
@@ -72,8 +100,11 @@ function moveImgRight(idd){
 function recursionMoveRight(postImg, leftt, limLeft){
     leftt -= 30
     postImg.style.left = leftt + 'px'
-    if (leftt >= limLeft){
+    if (leftt > limLeft){
         setTimeout(recursionMoveRight, 10, postImg, leftt, limLeft) 
+    }
+    else{
+        postImg.style.left = limLeft + 'px'        
     }
 }
 
@@ -100,7 +131,6 @@ for(var i = 0; i < data2.length; i++){
     for(var j = 0; j < data2[i][5].length; j++){
         myComment = new Comment(data2[i][1], data2[i][2], data2[i][5][j], 'post'+i+'comment'+j)
         myComment.fillContent("comment")
-        console.log(myComment)
     }
 }
 
@@ -241,10 +271,8 @@ function moveUp(){
 
 function solve(){
     // 1. Откроет html документ
-    console.log(document)
     // 2. Найти нужный див
     nuznyiDiv = document.getElementById("answer")
-    console.log(nuznyiDiv)
     // 3. В этом диве поменять текст
     nuznyiDiv.innerHTML = "Works"
 }
@@ -253,10 +281,8 @@ function solve(){
 function krutaiaFunkcia(a, x){
     for(var i = 1; i <= 100; i++){
         if(i % 7 == 0 && i % 3 != 0){
-            console.log(i)
         }
         else{
-            console.log("Не подходит", i)
         }
         // Не совсем корректный способ
         // if(i % 7 == 0){
