@@ -1,10 +1,10 @@
-getData()
+// getData()
 async function getData(){
     data = new FormData()
     // data.append('username', "Timur")
     request = await fetch('https://randomuser.me/api/', {
         method:"POST",
-        bod
+        body:data
     })
     a = await request.json()
     console.log(a)
@@ -31,17 +31,19 @@ class Parent {
     this.imgAuthor = imgAuthor;
     this.nameAuthor = nameAuthor;
     this.text = text;
-    this.id = idd;
+    this.id = 'post' + idd;
   }
-  fillContent(contentType) {
+  fillPost(contentType) {
     var origPost = document.getElementById('orig'+contentType)
-    console.log(contentType)
     if(origPost){
         var clonePost = origPost.cloneNode(true)
         clonePost.setAttribute('id', this.id)
         var postText = clonePost.getElementsByClassName(contentType+'Text')[0]
         postText.innerHTML = this.text
         var postBox = document.getElementsByClassName(contentType+'Box')[0]
+        var commentBox = clonePost.getElementsByClassName("commentBox")[0]
+        commentBox.innerHTML = ''
+        commentBox.setAttribute('id', 'commentBox' + this.id)
         postBox.appendChild(clonePost)
     }
   }
@@ -61,6 +63,7 @@ class Post extends Parent {
         var postWidth = postBox.offsetWidth // Достает длину без пиксели в виде числа
         var startLeft = clonePost.offsetLeft
         var postImgBox = clonePost.getElementsByClassName('postImgBox')[0]
+        
         for(var i = 0; i < imgSrcs.length; i++){
             var imgPostCrnt = imgPostOrig.cloneNode(true)
             postImgBox.appendChild(imgPostCrnt)
@@ -72,6 +75,9 @@ class Post extends Parent {
         // Правая кнопка
         var rightBtn = clonePost.getElementsByClassName('rightBtn')[0]
         rightBtn.style.left = clonePost.offsetLeft + clonePost.offsetWidth - rightBtn.offsetWidth + 'px'
+        if(imgSrcs.length == 1){
+            rightBtn.style.display = 'none'
+        }
         // onclick делаем
         rightBtn.setAttribute('onclick', "moveImg('"+ this.id + "', 'Right')")
         rightBtn.setAttribute('id', "moveImgRight"+ this.id)
@@ -85,24 +91,57 @@ class Post extends Parent {
 function moveImg(idd, side){
     var postBox = document.getElementsByClassName('postBox')[0]
     var postRight = postBox.offsetLeft + postBox.offsetWidth
+    var postLeft = postBox.offsetLeft
     postImg = document.getElementsByClassName('Img' + idd)
-    btn = document.getElementById('moveImg' + side + idd)
-    if(postImg[postImg.length - 1].offsetLeft < postRight + 50){
-        btn.style.display = "none"
+    rightbtn = document.getElementById('moveImg' + 'Right' + idd)
+    leftbtn = document.getElementById('moveImg' + 'Left' + idd)
+    console.log(side)
+    if(postImg[postImg.length - 1].offsetLeft <= postRight + 50){
+        rightbtn.style.display = "none"
+    }
+    if(postImg[0].offsetLeft >= postLeft - postBox.offsetWidth - 50){
+        leftbtn.style.display = "none"
+    }
+    if(side == 'Left'){
+        rightbtn.style.display = "block"
+    }
+    else{
+        leftbtn.style.display = "block"
     }
     for(var i = 0; i < postImg.length; i++){
         leftt = postImg[i].offsetLeft
         widthh = postImg[i].offsetWidth
-        limLeft = leftt - widthh
-        recursionMoveRight(postImg[i], leftt, limLeft)
+        if(side == 'Left'){
+            limLeft = leftt+widthh
+        }
+        else{
+            limLeft = leftt - widthh
+        }
+        recursionMove(postImg[i], leftt, limLeft, side)
     }
 }
-function recursionMoveRight(postImg, leftt, limLeft){
-    leftt -= 30
-    postImg.style.left = leftt + 'px'
-    if (leftt > limLeft){
-        setTimeout(recursionMoveRight, 10, postImg, leftt, limLeft) 
+function recursionMove(postImg, leftt, limLeft, side){
+    if(side == 'Left'){
+        leftt += 30
     }
+    else{
+        leftt -= 30
+    }
+    postImg.style.left = leftt + 'px'
+    needMove = false
+    if(side == 'Left'){
+        if (leftt <= limLeft){
+            needMove = true
+        }
+    }
+    else{
+        if (leftt >= limLeft){
+            needMove = true
+        }
+    }
+    if(needMove == true){
+        setTimeout(recursionMove, 10, postImg, leftt, limLeft, side)
+    } 
     else{
         postImg.style.left = limLeft + 'px'        
     }
@@ -113,24 +152,33 @@ function recursionMoveRight(postImg, leftt, limLeft){
 
 
 class Comment extends Parent {
-    constructor(imgAuthor, nameAuthor, text, idd) { // Тут просто переменные
+    constructor(imgAuthor, nameAuthor, text, idd, postId) { // Тут просто переменные
       super(imgAuthor, nameAuthor, text, idd);
+      this.postId = postId
+    }
+    fillContent() {
+        var origComment = document.getElementById('origcomment')
+        if(origComment){
+            var cloneComment = origComment.cloneNode(true)
+            cloneComment.setAttribute('id', 'comment' + this.id)
+            var commentText = cloneComment.getElementsByClassName('commentText')[0]
+            commentText.innerHTML = this.text
+            var commentBox = document.getElementById('commentBoxpost'+this.postId)
+            commentBox.appendChild(cloneComment)
+        }
     }
 }
 
-function moveImg(){
-    
-}
 
 myObjects = []
 for(var i = 0; i < data2.length; i++){
-    let myPost = new Post(data2[i][0], data2[i][1], data2[i][2], data2[i][3], 'post' + data2[i][4]);
+    let myPost = new Post(data2[i][0], data2[i][1], data2[i][2], data2[i][3], data2[i][4]);
     myObjects.push(myPost)
-    myPost.fillContent("post")
+    myPost.fillPost("post")
     myPost.fillImg()
     for(var j = 0; j < data2[i][5].length; j++){
-        myComment = new Comment(data2[i][1], data2[i][2], data2[i][5][j], 'post'+i+'comment'+j)
-        myComment.fillContent("comment")
+        myComment = new Comment(data2[i][1], data2[i][2], data2[i][5][j], 'post'+data2[i][4]+'comment'+j, data2[i][4])
+        myComment.fillContent()
     }
 }
 

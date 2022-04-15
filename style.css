@@ -1,6 +1,8 @@
-body{
+html, body{
     margin: 0;
     font-family: 'Pacifico', cursive;
+    overflow-x: hidden;
+    position: relative
 }
 a{
     cursor: pointer;
@@ -42,6 +44,7 @@ a{
     padding: 0 15px;
     margin: 0 15px;
     cursor: pointer;
+    box-shadow: none;
 }
 .flex{
     display: flex;
@@ -169,8 +172,17 @@ textarea{
     height: 300px;
     left: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 0fr 1fr 0fr;
     grid-template-rows: auto;
+}
+/* Для других экранов */
+@media (min-width: 900px) { /* if(width >= 900px){} */
+    .carousel{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: auto;
+        align-items: center;
+    }
 }
 .iama{
     z-index: 0;
@@ -187,7 +199,6 @@ textarea{
     z-index: 0;
 }
 .postImg{
-    max-width: 50%;
     position: absolute;
     height: 300px;
     z-index: 5;
